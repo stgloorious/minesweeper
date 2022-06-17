@@ -1,19 +1,17 @@
 Grid grid;
 
 void setup () {
-  size(800, 800);
+  size(800, 800, P2D);
   surface.setResizable(true);
   surface.setTitle("Minesweeper");
   grid = new Grid(20,30);
   grid.populate_mines(90);
 }
 
-
-void draw () {
+void draw() {
   background(0);
   grid.update();
 }
-
 
 void mouseClicked () {
   int x = int((mouseX-grid.offset.x)/grid.cell_size);
@@ -33,5 +31,8 @@ void mouseClicked () {
 void keyPressed () {
   if (key == 'r' || key == 'R'){
     setup();
+  }
+  if (key == 'q' || key == 'Q'){
+    exit();
   }
 }
