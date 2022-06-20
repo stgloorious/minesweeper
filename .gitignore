@@ -1,3 +1,5 @@
+windows-amd64
+linux-amd64
 release.tar.gz
 release
 *.autosave

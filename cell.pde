@@ -19,8 +19,10 @@ class Cell {
   color color_visible;
   color color_hidden;
   color color_text;
+  color color_selected;
   PImage mine_img;
   PImage flag_img;
+  boolean is_selected;
 
   Cell (int cell_size, int x_pos, int y_pos, PImage mine, PImage flag) {
     is_visible = false;
@@ -32,6 +34,8 @@ class Cell {
     size = cell_size;
     color_visible = color(180);
     color_hidden = color(50);
+    color_selected = color(220);
+    is_selected = false;
     mine_img = mine;
     flag_img = flag;
   }
@@ -43,10 +47,21 @@ class Cell {
   void update() {
     // Draw cell box
     if (is_visible) {
-      fill(color_visible);
-    } else {
-      fill(color_hidden);
+      if (is_selected) {
+          fill(color_selected);
+      } else {
+          fill(color_visible);
+      }
     }
+    else {
+      if (is_selected) {
+          fill(color_selected);
+      } else {
+          fill(color_hidden);
+      }
+
+    }
+
     rect(offset.x+pos_x*size, offset.y+pos_y*size, size, size);
 
     // Uncovered, empty cell shows number of neighbors
@@ -57,8 +72,6 @@ class Cell {
       if (n_neighbors > 0) {
         text(n_neighbors, offset.x+pos_x*size+size/2, offset.y+pos_y*size+size*0.8);
       }
-    } else { //empty cell with no neighbors
-      fill(color_visible);
     }
     // Draw mines and flags
     if (is_visible && has_mine) {
