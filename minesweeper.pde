@@ -14,8 +14,12 @@ void draw() {
 }
 
 void mouseClicked () {
+  if (mouseX < grid.offset.x || mouseY < grid.offset.y)
+    return;
   int x = int((mouseX-grid.offset.x)/grid.cell_size);
   int y = int((mouseY-grid.offset.y)/grid.cell_size);
+  if (x >= grid.n_x || y >= grid.n_y)
+    return;
   if (mouseButton == LEFT) {
     if (!grid.cells.get(x+y*grid.n_x).has_flag 
     && !grid.cells.get(x+y*grid.n_x).is_visible) {
